@@ -2,7 +2,7 @@ import { connect } from "mqtt";
 import firebaseAdmin from "firebase-admin";
 import fs from "fs";
 import { InfluxDB, Point } from "@influxdata/influxdb-client";
-import "dotenv/config";
+// import "dotenv/config";
 
 const mqttConfig = {
   host: "broker.emqx.io",

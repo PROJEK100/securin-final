@@ -69,7 +69,26 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
+  mqttfirebasebridge:
+    build:
+      context: ./mqtt_firebase_bridge
+    container_name: MqttFirebaseBridge
+    environment:
+      - NODE_ENV=production
+      - FIREBASE_DATABASE_URL=https://securin-b49ed-default-rtdb.asia-southeast1.firebasedatabase.app
+      - INFLUX_URL=http://influxdb:8086
+      - INFLUX_TOKEN=rahasia_securin
+      - INFLUX_ORG=securin
+      - INFLUX_BUCKET=securinbucket
+    volumes:
+      - ./credentials.json:/usr/src/app/credentials.json:ro
+    networks:
+      - kafka-network
+      - securin_net
+    restart: unless-stopped
 
 networks:
+  securin_net:
+    external: true
   kafka-network:
     driver: bridge
