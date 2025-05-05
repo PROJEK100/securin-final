@@ -1,13 +1,26 @@
 version: "3.8"
 
 services:
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    networks:
+      - securin_net
   web_dashboard:
     build:
       context: ./web_dashboard
       dockerfile: Dockerfile
     container_name: web_dashboard
-    ports:
-      - "80:80"
+    # ports:
+    #   - "80:80"
     restart: unless-stopped
     environment:
       - NODE_ENV=production
@@ -49,3 +62,7 @@ networks:
   securin_net:
     driver: bridge
     name: securin_net
+
+volumes:
+  caddy_data:
+  caddy_config:

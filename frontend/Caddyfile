@@ -1,0 +1,3 @@
+dashboard.securin.cloud {
+    reverse_proxy web_dashboard:80
+}
