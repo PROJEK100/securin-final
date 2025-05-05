@@ -50,7 +50,7 @@ public class ProfileFragment extends Fragment {
     private Bitmap lastBitmap;
     private String selectedVehicleId;
 
-    private static final String BASE_ENDPOINT = "192.168.153.119";
+    private static final String BASE_ENDPOINT = "64.235.45.24";
     private static final String BASE_PORT = "4998";
     private static final String BASE_UPLOAD_URL = "http://" + BASE_ENDPOINT + ":" + BASE_PORT + "/";
 
