@@ -1,38 +1,24 @@
 version: '3.8'
 
 services:
-  face-recognition:
+  drowsiness_detection:
     build:
-      context: .
-      dockerfile: Dockerfile.face_recognition
-    container_name: face-recognition
-    restart: unless-stopped
-    ports:
-      - "5001:5001"
-    volumes:
-      - ./known_faces:/app/known_faces
-      - ./uploads:/app/uploads
-      - ./serviceAccountKey.json:/app/serviceAccountKey.json:ro
-    environment:
-      - TZ=Asia/Jakarta
-    networks:
-      - securin-network
-
-  drowsiness-detection:
-    build:
-      context: .
-      dockerfile: Dockerfile.drowsiness
-    container_name: drowsiness-detection
-    restart: unless-stopped
+      context: ./drowsiness_detection
+      dockerfile: Dockerfile
+    container_name: drowsiness_detection
     ports:
       - "5002:5002"
-    volumes:
-      - ./serviceAccountKey.json:/app/serviceAccountKey.json:ro
+    restart: always
     environment:
       - TZ=Asia/Jakarta
-    networks:
-      - securin-network
 
-networks:
-  securin-network:
-    driver: bridge
+  face_recognition:
+    build:
+      context: ./face_recognition
+      dockerfile: Dockerfile
+    container_name: face_recognition
+    ports:
+      - "5001:5001"
+    restart: always
+    environment:
+      - TZ=Asia/Jakarta
