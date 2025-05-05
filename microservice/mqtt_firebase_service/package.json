@@ -1,0 +1,26 @@
+{
+  "name": "mqtt-firebase-bridge",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Bridge between MQTT and Firebase Realtime Database",
+  "main": "mqtt-firebase-bridge.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mqtt",
+    "firebase",
+    "bridge",
+    "realtime",
+    "database"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@influxdata/influxdb-client": "^1.35.0",
+    "dotenv": "^16.5.0",
+    "firebase-admin": "^11.11.1",
+    "mqtt": "^4.3.8"
+  }
+}
