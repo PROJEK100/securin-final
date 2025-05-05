@@ -1,0 +1,24 @@
+# Fetching the latest node image on alpine linux
+FROM node:alpine AS development
+
+# Declaring environment variable
+ENV NODE_ENV development
+
+# Setting up the work directory inside the container
+WORKDIR ./WEB_DASHBOARD
+
+# Copying package.json and package-lock.json for dependency installation
+COPY package.json package-lock.json ./
+
+# Installing dependencies
+RUN npm install
+
+# Copying the rest of the application files into the container
+COPY . .
+
+# Exposing the default Vite port (5173)
+EXPOSE 5173
+
+# Starting the application using Vite's dev server
+# CMD ["npm", "run", "dev", "--", "--host"]
+CMD ["npm", "run", "dev"]

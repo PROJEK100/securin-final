@@ -1,0 +1,75 @@
+services:
+  firebasenotificationservice:
+    build:
+      context: ./firebase_notification_service
+    container_name: FirebaseNotificationService
+    environment:
+      - NODE_ENV=production
+      - KAFKA_BROKER=kafka:9093
+      - FIREBASE_DATABASE_URL=https://sipalingiot-2c411-default-rtdb.firebaseio.com/
+      - GEOAPIFY_API_KEY=1098b732537b424eb354fff6b9eafefb
+      - FACE_HANDLER_URL="http://test.com:9999"
+    depends_on:
+      kafka:
+        condition: service_healthy
+    networks:
+      - kafka-network
+    restart: unless-stopped
+
+  whatsappbotservice:
+    build:
+      context: ./whatsapp_bot_service
+    container_name: WhatsappBotService
+    environment:
+      - NODE_ENV=production
+      - KAFKA_BROKER=kafka:9093
+    depends_on:
+      kafka:
+        condition: service_healthy
+    networks:
+      - kafka-network
+    restart: unless-stopped
+
+  kafka:
+    image: wurstmeister/kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_CREATE_TOPICS: "my-topic:1:1"
+    depends_on:
+      - zookeeper
+    networks:
+      - kafka-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "kafka-topics.sh", "--list", "--bootstrap-server", "localhost:9093"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  zookeeper:
+    image: wurstmeister/zookeeper:latest
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    networks:
+      - kafka-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "echo", "ruok", "|", "nc", "localhost", "2181", "|", "grep", "imok"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+networks:
+  kafka-network:
+    driver: bridge

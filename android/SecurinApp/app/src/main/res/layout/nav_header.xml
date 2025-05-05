@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="bottom"
+    android:padding="16dp"
+    android:background="@drawable/wavenew">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profileImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/profile_logo"
+        app:shapeAppearanceOverlay="@style/CustomCircleImageView"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_bold"
+        android:text="Eru Chitanda"
+        android:layout_marginTop="5dp"
+        android:id="@+id/nameTV"
+        android:textStyle="bold"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_bold"
+        android:layout_marginTop="1dp"
+        android:text="Last updated 12 Nov 2024"
+        android:textSize="14sp"
+        android:id="@+id/mailTV"
+        android:layout_marginBottom="2dp"/>
+
+
+
+</LinearLayout>

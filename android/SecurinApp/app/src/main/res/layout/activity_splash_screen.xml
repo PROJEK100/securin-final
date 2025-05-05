@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_gradient_splash"
+    tools:context=".SplashScreen">
+
+    <!--    <ImageView-->
+    <!--        android:id="@+id/logo_splash"-->
+    <!--        android:layout_width="300dp"-->
+    <!--        android:layout_height="300dp"-->
+    <!--        android:layout_centerInParent="true"-->
+    <!--        android:src="@drawable/logo_splash_gps" />-->
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/logo_splash"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        app:lottie_rawRes="@raw/motorcycle"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true" />
+
+
+    <ImageView
+        android:id="@+id/logo_satelit"
+        android:layout_width="140dp"
+        android:layout_height="70dp"
+        android:src="@drawable/logo_splash_satelit"
+        android:layout_alignBottom="@+id/logo_splash"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="280dp" />
+
+    <TextView
+        android:id="@+id/textutama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_splash"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/description"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:typeface="normal" />
+
+    <TextView
+        android:id="@+id/text_deskripsi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textutama"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
+        android:text="@string/tagline"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        android:typeface="normal" />
+
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btn_google_signin"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/text_deskripsi"
+        android:layout_marginTop="15dp"
+        />
+
+    <TextView
+        android:id="@+id/text_subdeskripsi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_google_signin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/sf_pro_bold"
+        android:gravity="center"
+        android:text="@string/tri"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:typeface="normal" />
+
+</RelativeLayout>

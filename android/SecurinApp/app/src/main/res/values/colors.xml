@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="yellow_desc">#FFC300</color>
+    <color name="black">#FF000000</color>
+    <color name="icon_tint">#000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_sub">#80FFFFFF</color>
+    <color name="nav_bg">#592E83</color>
+    <color name="main_contrast">#00F0FF</color>
+    <color name="warning">#CC3300</color>
+</resources>

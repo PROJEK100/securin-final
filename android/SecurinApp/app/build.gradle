@@ -1,0 +1,68 @@
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.google.gms.google.services)
+}
+
+android {
+    namespace 'com.thehashss.securin'
+    compileSdk 34
+
+    defaultConfig {
+    applicationId "com.thehashss.securin"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        def properties = new Properties()
+        properties.load(new FileInputStream(project.rootProject.file("local.properties")))
+
+        manifestPlaceholders["MAPS_API_KEY"] = properties.getProperty("MAPS_API_KEY")
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    def camerax_version = "1.2.3"
+
+    implementation "androidx.camera:camera-core:$camerax_version"
+    implementation "androidx.camera:camera-camera2:$camerax_version"
+    implementation "androidx.camera:camera-lifecycle:$camerax_version"
+
+    implementation "androidx.camera:camera-view:$camerax_version"
+
+    implementation "androidx.camera:camera-extensions:$camerax_version"
+    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    implementation 'com.google.android.gms:play-services-auth:21.2.0'
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    implementation 'com.airbnb.android:lottie:6.6.0'
+    implementation 'com.google.firebase:firebase-messaging:23.1.1'
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    implementation libs.firebase.database
+    implementation libs.play.services.maps
+    implementation libs.firebase.vertexai
+    implementation libs.lifecycle.viewmodel.android
+    implementation libs.firebase.auth
+    implementation libs.firebase.storage
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+}

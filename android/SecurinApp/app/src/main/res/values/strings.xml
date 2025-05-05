@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Securin</string>
+    <string name="description">Securin</string>
+    <string name="tagline">Antisipasi sekarang untuk menyelamatkan motor kamu</string>
+    <string name="tri">Made with ❤️ The Hash Slinging Slasher</string>
+    <string name="hexagon_img">Hexagon Asset</string>
+    <string name="open_nav">Buka Navigasi</string>
+    <string name="vehicle_name_placeholder">Scan QR dahulu!</string>
+    <string name="close_nav">Tutup navigasi</string>
+    <string name="logout">Logout</string>
+    <string name="sidenav_placeholder">Vehicle Placeholder</string>
+    <string name="default_web_client_id">641088905898-qvlsqq2fotk2v1a6e3mganq9a6h5p7aj.apps.googleusercontent.com</string>
+</resources>

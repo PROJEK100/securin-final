@@ -1,0 +1,82 @@
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Main content layout including bottom navigation and fragment container -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- FrameLayout for hosting fragments -->
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Bottom navigation bar -->
+        <me.ibrahimsn.lib.SmoothBottomBar
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/background_gradient_nav"
+            app:backgroundColor="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_nav_menu"
+            app:textColor="@color/white" />
+
+        <!-- Circular button above bottom navigation bar -->
+        <ImageView
+            android:id="@+id/circular_button"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="-100dp"
+            android:src="@drawable/tengah"
+            app:layout_constraintBottom_toBottomOf="@+id/bottomBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frame_layout" />
+
+        <!-- Power button on circular button -->
+        <ImageView
+            android:id="@+id/qr_button"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:src="@drawable/qr_scan"
+            app:layout_constraintBottom_toBottomOf="@+id/circular_button"
+            app:layout_constraintEnd_toEndOf="@+id/circular_button"
+            app:layout_constraintStart_toStartOf="@+id/circular_button"
+            app:layout_constraintTop_toTopOf="@+id/circular_button" />
+
+        <!-- Floating hamburger icon -->
+        <ImageView
+            android:id="@+id/hamburger_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Icon Hamburger"
+            android:src="@drawable/ic_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Navigation View for sidebar menu -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/side_nav_menu" />
+
+</androidx.drawerlayout.widget.DrawerLayout>

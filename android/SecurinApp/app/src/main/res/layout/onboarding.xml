@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_splash_1">
+
+    <ImageView
+        android:id="@+id/logo_splash"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="170dp"
+        android:src="@drawable/securin_splash" />
+
+    <LinearLayout
+        android:id="@+id/text_container"
+        android:layout_below="@id/logo_splash"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/staticText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/manrope"
+            android:text="Secure your "
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+
+        <!-- Teks dinamis yang akan di‐flip -->
+        <TextView
+            android:id="@+id/dynamicText"
+            android:layout_width="70dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope"
+            android:text="Bike"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loading_animation"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/logo_splash"
+        android:layout_marginTop="90dp"
+        app:lottie_rawRes="@raw/loading_animation"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="false" />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/loadingAnimation"-->
+<!--        android:layout_width="70dp"-->
+<!--        android:layout_height="70dp"-->
+<!--        android:src="@drawable/rotating_dots_animation"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_below="@id/logo_securin" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textutama"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="100dp"-->
+<!--        android:layout_below="@id/logo_splash"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:fontFamily="@font/manrope"-->
+<!--        android:text="Secure Your Ride"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="30sp"-->
+<!--        android:textStyle="bold" />-->
+
+</RelativeLayout>

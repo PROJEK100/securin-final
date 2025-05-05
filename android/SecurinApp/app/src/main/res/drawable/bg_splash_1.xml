@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Orientation: dari atas ke bawah.
+         Kamu bisa ubah jadi "tl_br", "bl_tr", dll sesuai kebutuhan -->
+    <gradient
+        android:angle="90"
+        android:startColor="#36305C"
+        android:endColor="#19162E"
+        android:type="linear" />
+
+</shape>

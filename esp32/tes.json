@@ -1,0 +1,49 @@
+{
+  "settings": {
+    "AEROX_768964": {
+      "notification_interval": 1,
+      "radius": {
+        "enabled": true,
+        "lat": -7.285785,
+        "lng": 120.785126,
+        "takeover": false,
+        "value": 1
+      }
+    }
+  },
+  "vehicle": {
+    "AEROX_768964": {
+      "electricity": {
+        "voltage": 8.98
+      },
+      "location": {
+        "lat": -7.285785,
+        "lng": 150.785126,
+        "timestamp": 1745705032
+      },
+      "master_switch": {
+        "last_updated": 1745847870,
+        "value": false
+      },
+      "modem": {
+        "IMEI": "866029036727230",
+        "IMSI": "510105942580765",
+        "ip_address": "100.97.110.160",
+        "operator": "TELKOMSEL",
+        "signal_strength": 13
+      },
+      "monitoring": {
+        "hall": 15,
+        "humidity": 67.3,
+        "temperature": 32.7
+      }
+    }
+  },
+  "wausers": {
+    "120363367983405720": {
+      "initialized": true,
+      "isGroup": true,
+      "vehicleId": "AEROX_768964"
+    }
+  }
+}

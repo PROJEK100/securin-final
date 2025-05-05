@@ -1,0 +1,33 @@
+{
+    "name": "firebasenotificationservice",
+    "version": "1.0.0",
+    "main": "dist",
+    "type": "module",
+    "scripts": {
+      "build": "tsc",
+      "start": "node .",
+      "lint": "eslint",
+      "format": "prettier --ignore-path .gitignore --write \"src/**/*.+(js|ts|json)\""
+    },
+    "keywords": [],
+    "author": "riskyprsty",
+    "license": "ISC",
+    "description": "",
+    "devDependencies": {
+      "@typescript-eslint/eslint-plugin": "8.15.0",
+      "@typescript-eslint/parser": "8.15.0",
+      "eslint": "^9.15.0",
+      "eslint-config-prettier": "^9.1.0",
+      "eslint-import-resolver-typescript": "^3.6.1",
+      "eslint-plugin-import": "^2.29.1",
+      "eslint-plugin-prettier": "^5.1.3",
+      "globals": "^15.12.0",
+      "prettier": "^3.2.5",
+      "ts-node": "^10.9.2",
+      "typescript": "^5.3.3"
+    },
+    "dependencies": {
+      "firebase-admin": "^13.0.1",
+      "kafkajs": "^2.2.4"
+    }
+  }
