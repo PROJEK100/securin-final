@@ -1,0 +1,33 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    libsm6 \
+    libxext6 \
+    libxrender-dev \
+    libglib2.0-0 \
+    # Dependencies for dlib and face_recognition
+    libopenblas-dev \
+    liblapack-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements-face-recognition.txt .
+RUN pip install --no-cache-dir -r requirements-face-recognition.txt
+
+# Copy application code
+COPY face_recognition_service.py .
+COPY serviceAccountKey.json .
+
+# Create necessary directories
+RUN mkdir -p uploads known_faces
+
+# Expose the port
+EXPOSE 5001
+
+# Command to run the application
+CMD ["python", "face_recognition_service.py"]
