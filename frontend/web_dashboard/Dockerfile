@@ -1,31 +1,33 @@
-# Fetching the latest node image on apline linux
-FROM node:alpine AS builder
+# Stage 1: Build React+Vite app
+FROM node:18-alpine AS builder
 
-# Declaring env
-ENV NODE_ENV production
-
-# Setting up the work directory
+# Jangan set NODE_ENV=production dulu, supaya devDependencies (termasuk vite) ikut terinstall
 WORKDIR /app
 
-# Installing dependencies
-COPY ./package.json ./
-RUN npm install
+# Copy package manifest dan install semua deps (prod + dev)
+COPY package.json package-lock.json* ./
+RUN npm ci
 
-# Copying all the files in our project
+# Copy sisa kode
 COPY . .
 
-# Building our application
+# Baru set NODE_ENV=production sebelum build (optional, tapi build tetap butuh vite)
+ENV NODE_ENV=production
+
+# Build dengan Vite
 RUN npm run build
 
-# Fetching the latest nginx image
-FROM nginx
+# Stage 2: Serve with nginx
+FROM nginx:alpine
 
-# Copying built assets from builder
-COPY --from=builder /app/build /usr/share/nginx/html
-
-# Copying our nginx.conf
+# Ganti config nginx default dengan custom (untuk SPA routing)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+# Salin hasil build
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Expose port
 EXPOSE 80
 
+# Jalankan nginx
 CMD ["nginx", "-g", "daemon off;"]

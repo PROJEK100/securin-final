@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  facerecognition_api:
+    build:
+      context: ./facerecognition_api
+      dockerfile: Dockerfile
+    container_name: facerecognition_api
+    ports:
+      - "4998:4998"
+    volumes:
+      - ./facerecognition_api/photo_storage:/app/photo_storage
+
+  ml_forwarder:
+    build:
+      context: ./ml_forwarder
+      dockerfile: Dockerfile
+    container_name: ml_forwarder
+    ports:
+      - "4999:4999"
+    # environment:
+    depends_on:
+      - facerecognition_api
