@@ -48,4 +48,4 @@ services:
 networks:
   securin_net:
     driver: bridge
-    name: securin_net
+    name: securin_net 

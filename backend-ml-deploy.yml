@@ -1,9 +1,38 @@
 version: '3.8'
 
 services:
+  # ── BACKEND ──
+  facerecognition_api:
+    build:
+      context: ./backend/facerecognition_api
+      dockerfile: Dockerfile
+    container_name: facerecognition_api
+    ports:
+      - "4998:4998"
+    volumes:
+      - ./backend/facerecognition_api/photo_storage:/app/photo_storage
+    networks:
+      - securin_be
+
+    ml_forwarder:
+    build:
+      context: ./backend/ml_forwarder
+      dockerfile: Dockerfile
+    container_name: ml_forwarder
+    ports:
+      - "4999:4999"
+    environment:
+      - DROWSINESS_DETECTION_SERVICE=http://drowsiness_detection:5002/upload
+      - FACE_DETECTION_SERVICE=http://face_recognition:5001/upload
+    depends_on:
+      - facerecognition_api
+    networks:
+      - securin_be
+
+  # ── MACHINE LEARNING ──
   drowsiness_detection:
     build:
-      context: ./drowsiness_detection
+      context: ./ml/drowsiness_detection
       dockerfile: Dockerfile
     container_name: drowsiness_detection
     ports:
@@ -15,10 +44,10 @@ services:
       - VEHICLE_ID=SUPRAX123
     networks:
       - securin_be
-
+    
   face_recognition:
     build:
-      context: ./face_recognition
+      context: ./ml/face_recognition
       dockerfile: Dockerfile
     container_name: face_recognition
     ports:
@@ -40,5 +69,5 @@ services:
       - securin_be
 
 networks:
-  securin_be:
-    external: true
+  securin_be:   
+    driver: bridge

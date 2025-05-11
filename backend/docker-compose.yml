@@ -9,6 +9,8 @@ services:
       - "4998:4998"
     volumes:
       - ./facerecognition_api/photo_storage:/app/photo_storage
+    networks:
+      - securin_be
 
   ml_forwarder:
     build:
@@ -20,3 +22,9 @@ services:
     # environment:
     depends_on:
       - facerecognition_api
+    networks:
+      - securin_be
+
+networks:
+  securin_be:
+    external: true
