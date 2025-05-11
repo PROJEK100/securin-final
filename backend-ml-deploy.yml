@@ -14,7 +14,7 @@ services:
     networks:
       - securin_be
 
-    ml_forwarder:
+  ml_forwarder:
     build:
       context: ./backend/ml_forwarder
       dockerfile: Dockerfile
