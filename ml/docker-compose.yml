@@ -26,7 +26,6 @@ services:
     restart: always
     environment:
       - TZ=Asia/Jakarta
-      - FIREBASE_CRED_PATH=/secrets/serviceAccountKey.json
       - FIREBASE_DATABASE_URL=https://securin-b49ed-default-rtdb.asia-southeast1.firebasedatabase.app/
       - VEHICLE_ID=SUPRAX123
       - MQTT_BROKER=broker.emqx.io
