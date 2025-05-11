@@ -63,8 +63,8 @@ services:
       - MQTT_USERNAME=    
       - MQTT_PASSWORD=
       - MQTT_CLIENT_ID=face_recognition_client
-      - INTRUDER_API=http://localhost:4998
-      - KNOWN_FACES_API=http://localhost:4998
+      - INTRUDER_API=http://facerecognition_api:4998
+      - KNOWN_FACES_API=http://facerecognition_api:4998
     networks:
       - securin_be
 
