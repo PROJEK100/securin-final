@@ -19,9 +19,22 @@ from firebase_admin import db
 
 app = Flask(__name__)
 
-FIREBASE_CRED_PATH = "/home/frhn/Desktop/file/project_sic6/work/serviceAccountKey.json"
-FIREBASE_DATABASE_URL = "https://securin-b49ed-default-rtdb.asia-southeast1.firebasedatabase.app/"
-FIREBASE_TOPIC = "vehicle/SUPRAX123/detection/drowsiness"
+# FIREBASE_CRED_PATH = "./serviceAccountKey.json"
+
+# FIREBASE_DATABASE_URL = (
+#     "https://securin-b49ed-default-rtdb.asia-southeast1.firebasedatabase.app/"
+# )
+# FIREBASE_TOPIC = "vehicle/SUPRAX123/detection/drowsiness"
+
+FIREBASE_DATABASE_URL = os.environ.get(
+    "FIREBASE_DATABASE_URL",
+    "https://securin-b49ed-default-rtdb.asia-southeast1.firebasedatabase.app/",
+)
+
+VEHICLE_ID = os.environ.get("VEHICLE_ID", "SUPRAX123")
+FIREBASE_TOPIC = f"vehicle/{VEHICLE_ID}/detection/drowsiness"
+
+FIREBASE_CRED_PATH = os.environ.get("FIREBASE_CRED_PATH", "./serviceAccountKey.json")
 
 EYE_AR_THRESH = 0.3
 EYE_AR_CONSEC_FRAMES = 5  
