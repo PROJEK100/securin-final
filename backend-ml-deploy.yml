@@ -23,7 +23,7 @@ services:
       - "4999:4999"
     environment:
       - DROWSINESS_DETECTION_SERVICE=http://drowsiness_detection:5002/upload
-      - FACE_DETECTION_SERVICE=http://face_recognition:5001/upload
+      - FACE_RECOGNITION_SERVICE=http://face_recognition:5001/upload
     depends_on:
       - facerecognition_api
     networks:
