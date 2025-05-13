@@ -8,7 +8,7 @@ import ujson
 from lib.umqtt.simple import MQTTClient
 
 class MQTTHandler:
-    def __init__(self, client_id, broker, user, password, topic_sensor, relay1, clock):
+    def __init__(self, client_id, broker, user, password, topic_sensor, relay1, clock,pin_relay):
         self.broker = broker
         self.user = user
         self.password = password
@@ -17,7 +17,8 @@ class MQTTHandler:
         self.client = MQTTClient(client_id, broker, user=user if user else None, password=password if password else None)
         self.client.set_callback(self.callback)
         self.clock = clock
-        self.relaypin = Pin(13, Pin.OUT)
+        self.relaypin = pin_relay
+        self.relaypin = Pin(self.relaypin, Pin.OUT)
 
     def connect(self):
         print("Connecting to MQTT broker...", end="")

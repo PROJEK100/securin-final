@@ -28,8 +28,8 @@ SEND_INTERVAL = 2
 last_send_time = 0
 
 # Connection Configuration
-WIFI_SSID = "TP-Link_AD7C"
-WIFI_PASSWORD = "88515762"
+WIFI_SSID = "tehyung_oppa"
+WIFI_PASSWORD = "39267207"
 GSM_APN = "internet"
 
 # PIN
@@ -52,7 +52,7 @@ MQTT_TOPIC_RELAY1 = "/SECURIN/SUPRAX125/master_switch"
 
 FIREBASE_URL = "https://muqsithfirebase-default-rtdb.asia-southeast1.firebasedatabase.app/" 
 
-RELAY = 2
+RELAYPIN = 4
 
 clock = Clock()
 
@@ -102,7 +102,8 @@ def main():
         MQTT_PASSWORD,
         MQTT_TOPIC_SENSOR,
         MQTT_TOPIC_RELAY1,
-        clock
+        clock,
+        RELAYPIN
     )
     mqtt_handler.connect()
     if conn.WIFI_GSM_STATE == "WiFi":
