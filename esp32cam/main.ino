@@ -51,7 +51,7 @@ void setup() {
   pinMode(BUZZER_PIN, OUTPUT);
   digitalWrite(BUZZER_PIN, LOW);
   
-  setupWiFi();
+  
   
   camera_config_t config;
   config.ledc_channel = LEDC_CHANNEL_0;
@@ -90,7 +90,7 @@ void setup() {
     Serial.printf("Camera init failed with error 0x%x", err);
     return;
   }
-  
+  setupWiFi();
   sensor_t * s = esp_camera_sensor_get();
   s->set_framesize(s, psramFound() ? FRAMESIZE_VGA : FRAMESIZE_QVGA);
   s->set_quality(s, 20);
@@ -106,7 +106,7 @@ void setup() {
 void setupWiFi() {
   wifiManager.setConfigPortalTimeout(180);
   
-  if (!wifiManager.autoConnect("ESP32CAM-Setup", "password123")) {
+  if (!wifiManager.autoConnect("Securin-cam", "securin123")) {
     Serial.println("Failed to connect and hit timeout");
     ESP.restart();
   }
