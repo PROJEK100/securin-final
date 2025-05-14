@@ -51,8 +51,6 @@ void setup() {
   pinMode(BUZZER_PIN, OUTPUT);
   digitalWrite(BUZZER_PIN, LOW);
   
-  
-  
   camera_config_t config;
   config.ledc_channel = LEDC_CHANNEL_0;
   config.ledc_timer = LEDC_TIMER_0;
@@ -90,12 +88,15 @@ void setup() {
     Serial.printf("Camera init failed with error 0x%x", err);
     return;
   }
-  setupWiFi();
   sensor_t * s = esp_camera_sensor_get();
+
   s->set_framesize(s, psramFound() ? FRAMESIZE_VGA : FRAMESIZE_QVGA);
+  s->set_vflip(s, 1);
   s->set_quality(s, 20);
   s->set_brightness(s, 1);
   s->set_contrast(s, 1);
+
+  setupWiFi();
   
   previousMillis = millis();
   fpsCounterTime = millis();
@@ -104,9 +105,28 @@ void setup() {
 }
 
 void setupWiFi() {
+
+ const char* customHeader = R"rawliteral(
+  <style>
+  body{background:#121212;color:#fff;font-family:Arial,sans-serif;margin:0;padding:0}
+  .header{background:#1e1e1e;color:#03DAC6;text-align:center;padding:15px;border-bottom:2px solid #03DAC6}
+  .header h1{margin:0;font-size:28px}
+  .header p{margin:5px 0 0;font-size:14px}
+  input{background:#2d2d2d;color:#fff;border:1px solid #444;border-radius:4px;padding:8px;width:100%;margin:8px 0}
+  input[type=submit]{background:#03DAC6;color:#000;font-weight:bold;cursor:pointer}
+  input[type=submit]:hover{background:#BB86FC}
+  </style>
+  <div class="header">
+    <h1>SECURIN</h1>
+    <p>Connect your device to WiFi</p>
+  </div>
+  )rawliteral";
+
+  wifiManager.setCustomHeadElement(customHeader);
+
   wifiManager.setConfigPortalTimeout(180);
-  
-  if (!wifiManager.autoConnect("Securin-cam", "securin123")) {
+
+  if (!wifiManager.autoConnect("Securin-CAM", "securin123")) {
     Serial.println("Failed to connect and hit timeout");
     ESP.restart();
   }
