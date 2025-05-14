@@ -6,4 +6,13 @@ export default defineConfig({
   define: {
     "process.env": {},
   },
+  server: {
+    proxy: {
+      "/apiface": {
+        target: "http://64.235.45.24:4998",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/apiface/, ""),
+      },
+    },
+  },
 });

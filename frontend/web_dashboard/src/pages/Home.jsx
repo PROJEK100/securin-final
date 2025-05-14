@@ -49,7 +49,7 @@ const Home = () => {
     const savedVehicles = JSON.parse(localStorage.getItem("vehicles") || "[]");
     const defaultVehicleId =
       localStorage.getItem("defaultVehicleId") ||
-      (savedVehicles.length > 0 ? savedVehicles[0] : "SUPRAX123");
+      (savedVehicles.length > 0 ? savedVehicles[0] : "SUPRAX125");
 
     setAvailableVehicles(savedVehicles);
     setVehicleId(defaultVehicleId);

@@ -3,7 +3,7 @@ import { InfluxDB } from "@influxdata/influxdb-client";
 export default class InfluxVehicleService {
   constructor() {
     this.influxDB = new InfluxDB({
-      url: "http://localhost:8086/",
+      url: "https://influxdb.securin.cloud",
       token: "rahasia_securin",
     });
 

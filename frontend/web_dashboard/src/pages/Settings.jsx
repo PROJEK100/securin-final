@@ -4,21 +4,27 @@ import { Plus, Trash2, Check, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Header from "../Components/common/Header";
 import Sidebar from "../Components/common/Sidebar";
+import { Upload } from "react-feather";
 
 const Settings = () => {
   const navigate = useNavigate();
   const [vehicles, setVehicles] = useState([]);
   const [newVehicleId, setNewVehicleId] = useState("");
-  const [defaultVehicleId, setDefaultVehicleId] = useState("");
+  const [defaultVehicleId, setDefaultVehicleId] = useState();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadError, setUploadError] = useState("");
+  const [uploadSuccess, setUploadSuccess] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
+  const [faceName, setFaceName] = useState("");
 
   useEffect(() => {
     const savedVehicles = JSON.parse(localStorage.getItem("vehicles") || "[]");
     const savedDefault =
       localStorage.getItem("defaultVehicleId") ||
-      (savedVehicles.length > 0 ? savedVehicles[0] : "");
+      (savedVehicles.length > 0 ? savedVehicles[0] : "SUPRAX125");
 
     setVehicles(savedVehicles);
     setDefaultVehicleId(savedDefault);
@@ -80,6 +86,78 @@ const Settings = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     navigate("/");
+  };
+
+  // Update the handleFileUpload function to use the faceName
+  const handleFileUpload = async (e) => {
+    e.preventDefault();
+
+    if (!selectedFile) {
+      setUploadError("Please select an image to upload");
+      return;
+    }
+
+    if (!faceName.trim()) {
+      setUploadError("Please enter a name for this face");
+      return;
+    }
+
+    setIsUploading(true);
+    setUploadError("");
+    setUploadSuccess("");
+
+    try {
+      const base64Image = await fileToBase64(selectedFile);
+      console.log("vehicle: ", defaultVehicleId);
+      const response = await fetch(
+        `/apiface/${defaultVehicleId}/upload_knownface/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            image: base64Image,
+            name: faceName,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to upload image");
+      }
+
+      const data = await response.json();
+      setUploadSuccess("Image uploaded successfully!");
+      setSelectedFile(null);
+      setFaceName("");
+    } catch (err) {
+      console.error("Error uploading image:", err);
+      setUploadError("Failed to upload image. Please try again.");
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  // Helper function to convert file to base64
+  const fileToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        // Remove prefix (e.g. "data:image/jpeg;base64,") to get just the base64 string
+        const base64String = reader.result.split(",")[1];
+        resolve(base64String);
+      };
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
+  const handleFileChange = (e) => {
+    if (e.target.files[0]) {
+      setSelectedFile(e.target.files[0]);
+      setUploadError("");
+    }
   };
 
   return (
@@ -180,6 +258,89 @@ const Settings = () => {
                 </ul>
               )}
             </div>
+          </motion.div>
+
+          <motion.div
+            className="bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl p-6 mb-8 border border-gray-700"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <h2 className="text-xl font-semibold mb-6">Face Recognition</h2>
+
+            <form onSubmit={handleFileUpload} className="mb-4">
+              <div className="flex flex-col gap-4">
+                <div className="w-full">
+                  <label className="block text-sm font-medium text-gray-400 mb-2">
+                    Person Name
+                  </label>
+                  <input
+                    type="text"
+                    value={faceName}
+                    onChange={(e) => setFaceName(e.target.value)}
+                    placeholder="Enter name for this face"
+                    className="w-full bg-gray-700 text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                </div>
+
+                <div className="w-full">
+                  <label className="block text-sm font-medium text-gray-400 mb-2">
+                    Upload Face Image
+                  </label>
+                  <input
+                    type="file"
+                    onChange={handleFileChange}
+                    accept="image/*"
+                    className="w-full bg-gray-700 text-white rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  {selectedFile && (
+                    <p className="mt-2 text-sm text-gray-400">
+                      Selected: {selectedFile.name}
+                    </p>
+                  )}
+                </div>
+
+                <div className="self-end">
+                  <button
+                    type="submit"
+                    disabled={isUploading || !selectedFile || !faceName.trim()}
+                    className={`${
+                      isUploading || !selectedFile || !faceName.trim()
+                        ? "bg-blue-800"
+                        : "bg-blue-600 hover:bg-blue-700"
+                    } text-white px-4 py-2 rounded-md flex items-center justify-center transition-colors`}
+                  >
+                    {isUploading ? (
+                      <>
+                        <span className="animate-spin mr-2">⏳</span>
+                        Uploading...
+                      </>
+                    ) : (
+                      <>
+                        <Upload size={18} className="mr-2" />
+                        Upload Image
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {uploadError && (
+                <p className="mt-2 text-red-400 text-sm">{uploadError}</p>
+              )}
+
+              {uploadSuccess && (
+                <div className="mt-4 p-3 bg-green-500 bg-opacity-20 border border-green-500 text-green-400 rounded-md flex items-center">
+                  <Check size={16} className="mr-2" />
+                  {uploadSuccess}
+                </div>
+              )}
+            </form>
+
+            <p className="text-sm text-gray-400">
+              Upload clear face images for recognition. Supported formats: JPG,
+              PNG.
+            </p>
           </motion.div>
 
           {/* Logout section */}
