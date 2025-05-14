@@ -17,7 +17,6 @@ import {
 import {
    formatInfoMessage,
    formatModemMessage,
-   formatTemperatureMessage,
    formatVehicleLocation,
    formatVehicleStatusMessage,
    helpMessage,
@@ -243,15 +242,6 @@ const commands: {
       await sendMessageWTyping(
          sock,
          { text: await formatModemMessage(vehicleId!) },
-         jid,
-      );
-   },
-   temperature: async (sock, jid) => {
-      const vehicleId = await getUserVehicleId(jid);
-
-      await sendMessageWTyping(
-         sock,
-         { text: await formatTemperatureMessage(vehicleId!) },
          jid,
       );
    },

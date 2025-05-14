@@ -7,8 +7,8 @@ export const helpMessage = async (
    senderName: string,
 ): Promise<[object, string]> => {
    const thumbnailUrl =
-      'https://cdn.jsdelivr.net/gh/riskyprsty/SmartMotorMicroservices@refs/heads/master/WhatsappBotService/src/docs/media/thumbnail.png';
-   const sourceUrl = 'https://tribone.my.id';
+      'https://cdn.jsdelivr.net/gh/PROJEK100/securin-staging@refs/heads/master/microservice/whatsapp_bot_service/src/docs/media/thumbnail.png';
+   const sourceUrl = 'https://securin.cloud';
    // const message = `Halo, ${senderName}! 🔖\nAku adalah bot *Smart Motor Monitoring* 🔥\nApa yang dapat saya lakukan?\n\n*🌡 Monitoring 🌡*\n\t*/status*\n\t*/location* \n\t*/modem*\n\n*⚙️ Control ⚙️*\n\t*/<on/off>* (kontrol switch)\n\t*/setradius <km>*\n\n*🛎️ Notification 🛎️*\n\t*/notify <on/off>*\n\t*/security <high/normal>* `;
    const message = `🔖 Haloo, ${senderName}!
 Aku adalah *Securin Bot* 🔥
@@ -130,7 +130,7 @@ export const formatVehicleStatusMessage = async (
       const message = `✨ Halo, status perangkat untuk motor anda dengan ID *${vehicleId}*
 
    ╭═══❖ sᴛᴀᴛᴇ ❖════╮
-   │ ◦ sᴛᴀᴛᴜs:   ${vehicleStatus.state.status.toUpperCase()} Volt    
+   │ ◦ sᴛᴀᴛᴜs:  * ${vehicleStatus.state.status.toUpperCase()}*
    ╰══════════════════╯
 
    ╭═══❖ ꜱᴛᴀᴛᴜꜱ ᴍᴏᴅᴇᴍ ❖═══╮
@@ -204,24 +204,6 @@ export const formatModemMessage = async (vehicleId: string): Promise<string> => 
    │ ◦ 📶 sɪɢɴᴀʟ:   ${vehicleStatus.modem.signal_strength} *dBm*
    │ ◦ 🔓 ɪᴍᴇɪ:   ${vehicleStatus.modem.IMEI}
    │ ◦ 🔐 ɪᴍsɪ:   ${vehicleStatus.modem.IMSI}
-   ╰══════════════════╯
-      `;
-
-         return message;
-      } catch (e) {
-         console.log(e);
-         return 'Error ketika mendapatkan info settings';
-      }
-}
-
-export const formatTemperatureMessage = async (vehicleId: string): Promise<string> => {
-      try {
-         const vehicleStatus = await getVehicleStatus(vehicleId);
-         const message = `✨ Informasi status sensor temperatur pada perangkat dengan ID *${vehicleId}*
-      
-   ╭═══❖ sᴛᴀᴛᴜs ᴍᴏᴅᴇᴍ ❖═══╮
-   │ ◦ 🫧 ʜᴜᴍɪᴅɪᴛʏ:   ${vehicleStatus.monitoring.humidity}
-   │ ◦ 🌡️ ᴛᴇᴍᴘᴇʀᴀᴛᴜʀᴇ:   ${vehicleStatus.monitoring.temperature} *Celcius*
    ╰══════════════════╯
       `;
 
