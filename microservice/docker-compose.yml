@@ -6,7 +6,7 @@ services:
     environment:
       - NODE_ENV=production
       - KAFKA_BROKER=kafka:9093
-      - FIREBASE_DATABASE_URL=https://sipalingiot-2c411-default-rtdb.firebaseio.com/
+      - FIREBASE_DATABASE_URL=https://securin-b49ed-default-rtdb.asia-southeast1.firebasedatabase.app
       - GEOAPIFY_API_KEY=1098b732537b424eb354fff6b9eafefb
       - FACE_HANDLER_URL="http://64.235.45.24:9999"
     depends_on:
@@ -28,6 +28,8 @@ services:
         condition: service_healthy
     networks:
       - kafka-network
+    volumes:
+    - ./whatsapp_bot_service/auth:/app/auth
     restart: unless-stopped
 
   kafka:
@@ -76,7 +78,7 @@ services:
     environment:
       - NODE_ENV=production
       - FIREBASE_DATABASE_URL=https://securin-b49ed-default-rtdb.asia-southeast1.firebasedatabase.app
-      - INFLUX_URL=http://influxdb:8086
+      - INFLUX_URL=https://influxdb.securin.cloud
       - INFLUX_TOKEN=rahasia_securin
       - INFLUX_ORG=securin
       - INFLUX_BUCKET=securinbucket
@@ -89,6 +91,6 @@ services:
 
 networks:
   securin_net:
-    external: true
+    driver: bridge
   kafka-network:
     driver: bridge
