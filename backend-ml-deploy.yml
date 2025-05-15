@@ -41,7 +41,7 @@ services:
     environment:
       - TZ=Asia/Jakarta
       - FIREBASE_DATABASE_URL=https://securin-b49ed-default-rtdb.asia-southeast1.firebasedatabase.app/
-      - VEHICLE_ID=SUPRAX123
+      - VEHICLE_ID=SUPRAX125
     networks:
       - securin_be
     
@@ -56,7 +56,7 @@ services:
     environment:
       - TZ=Asia/Jakarta
       - FIREBASE_DATABASE_URL=https://securin-b49ed-default-rtdb.asia-southeast1.firebasedatabase.app/
-      - VEHICLE_ID=SUPRAX123
+      - VEHICLE_ID=SUPRAX125
       - MQTT_BROKER=broker.emqx.io
       - MQTT_PORT=1883
       - MQTT_USERNAME=    
@@ -64,6 +64,8 @@ services:
       - MQTT_CLIENT_ID=face_recognition_client
       - INTRUDER_API=http://facerecognition_api:4998
       - KNOWN_FACES_API=http://facerecognition_api:4998
+    volumes:
+      - ./backend/facerecognition_api/photo_storage:/app/photo_storage
     networks:
       - securin_be
 

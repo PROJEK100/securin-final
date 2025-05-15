@@ -30,7 +30,7 @@ FIREBASE_DATABASE_URL = os.environ.get(
     "FIREBASE_DATABASE_URL", "https://securin-b49ed-default-rtdb.asia-southeast1.firebasedatabase.app/"
 )
 
-VEHICLE_ID = os.environ.get("VEHICLE_ID", "SUPRAX123")
+VEHICLE_ID = os.environ.get("VEHICLE_ID", "SUPRAX125")
 FIREBASE_TOPIC = f"vehicle/{VEHICLE_ID}/detection/face_detection"
 FIREBASE_MASTER_SWITCH = f"vehicle/{VEHICLE_ID}/master_switch"
 
@@ -45,15 +45,22 @@ MQTT_TOPIC = f"/SECURIN/{VEHICLE_ID}/master_switch"
 INTRUDER_API = os.environ.get("INTRUDER_API", "http://localhost:4998")
 KNOWN_FACES_API = os.environ.get("KNOWN_FACES_API", "http://localhost:4998")
 
+KNOWN_FACES_DIR = os.path.join("photo_storage", VEHICLE_ID, "knownface_photo")
+
+os.makedirs(KNOWN_FACES_DIR, exist_ok=True)
+
 base_intruder = INTRUDER_API.rstrip("/")
 base_known = KNOWN_FACES_API.rstrip("/")
 
 INTRUDER_API_ENDPOINT = os.environ.get(
     "INTRUDER_API_ENDPOINT", f"{base_intruder}/{VEHICLE_ID}/upload_intruder/"
 )
+
 KNOWN_FACES_API_ENDPOINT = os.environ.get(
-    "KNOWN_FACES_API_ENDPOINT", f"{base_known}/upload_knownface/"
+    "KNOWN_FACES_API_ENDPOINT", f"{base_known}/{VEHICLE_ID}/knownface_json/"
 )
+
+# KNOWN_FACES_API_ENDPOINT="http://localhost:4998/SUPRAX125/knownface_json/"
 
 NTP_SERVER = "pool.ntp.org"
 WIB_TIMEZONE = pytz.timezone("Asia/Jakarta")
@@ -649,7 +656,7 @@ def limit_images():
 
 
 face_system = FaceRecognitionSystem(
-    known_faces_dir="known_faces",
+    known_faces_dir=KNOWN_FACES_DIR,
     detection_interval=1.0,
     firebase_cred_path=FIREBASE_CRED_PATH,
     firebase_database_url=FIREBASE_DATABASE_URL,
@@ -762,14 +769,14 @@ def refresh_known_faces():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
+    
 def main():
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
 
-    if not os.path.exists("known_faces"):
-        os.makedirs("known_faces")
-        print("Created known_faces directory. Please add face images before detection.")
+    # if not os.path.exists("known_faces"):
+    #     os.makedirs("known_faces")
+    #     print("Created known_faces directory. Please add face images before detection.")
 
     if timestamp_manager.is_synchronized:
         print(

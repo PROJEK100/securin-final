@@ -20,6 +20,7 @@ DROWSINESS_DETECTION_SERVICE = os.getenv(
     "DROWSINESS_DETECTION_SERVICE", "http://127.0.0.1:5002/upload"
 )
 
+
 def forward_request(url, data, results, service_name):
     try:
         start_time = time.time()

@@ -202,6 +202,19 @@ def list_knownface_photos(device_id):
     return html
 
 
+@app.route("/<device_id>/knownface_json/", methods=["GET"])
+def list_knownface_json(device_id):
+    _, _, knownface_dir = ensure_id_folders(device_id)
+    entries = []
+    for fname in os.listdir(knownface_dir):
+        if fname.lower().endswith((".jpg", ".png")):
+            path = os.path.join(knownface_dir, fname)
+            with open(path, "rb") as f:
+                b64 = base64.b64encode(f.read()).decode("utf-8")
+            entries.append({"filename": fname, "data": b64})
+    return jsonify(entries)
+
+
 @app.route("/<device_id>/intruder_photo/<filename>")
 def serve_intruder_photo(device_id, filename):
     _, intruder_dir, _ = ensure_id_folders(device_id)
