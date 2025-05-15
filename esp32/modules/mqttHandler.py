@@ -34,12 +34,12 @@ class MQTTHandler:
         print("Topic eee:", topic)
         if b'master_switch' in topic:
             print("Relay 1 received:", msg)
-            if msg == b'1':
+            if msg == b'0':
                 self.relaypin.value(1)
-                print("Relay ON")
-            elif msg == b'0':
-                self.relaypin.value(0)
                 print("Relay OFF")
+            elif msg == b'1':
+                self.relaypin.value(0)
+                print("Relay ON")
 
     def check_messages(self):
         self.client.check_msg()

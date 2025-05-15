@@ -28,8 +28,8 @@ SEND_INTERVAL = 2
 last_send_time = 0
 
 # Connection Configuration
-WIFI_SSID = "tehyung_oppa"
-WIFI_PASSWORD = "39267207"
+WIFI_SSID = "securin"
+WIFI_PASSWORD = "88888888"
 GSM_APN = "internet"
 
 # PIN
