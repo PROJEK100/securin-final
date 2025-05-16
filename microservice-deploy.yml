@@ -1,7 +1,7 @@
 services:
   firebasenotificationservice:
     build:
-      context: ./firebase_notification_service
+      context: ./microservice/firebase_notification_service
     container_name: FirebaseNotificationService
     env_file:
       - .env
@@ -20,7 +20,7 @@ services:
 
   whatsappbotservice:
     build:
-      context: ./whatsapp_bot_service
+      context: ./microservice/whatsapp_bot_service
     container_name: WhatsappBotService
     env_file:
       - .env
@@ -78,7 +78,7 @@ services:
     
   mqttfirebasebridge:
     build:
-      context: ./mqtt_firebase_bridge
+      context: ./microservice/mqtt_firebase_bridge
     container_name: MqttFirebaseBridge
     env_file:
       - .env
