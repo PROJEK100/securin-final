@@ -1,0 +1,54 @@
+services:
+  web_dashboard:
+    build:
+      context: ./frontend/web_dashboard
+      dockerfile: Dockerfile
+    container_name: web_dashboard
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - VITE_INFLUX_URL=http://influxdb:8086/
+      - VITE_INFLUX_TOKEN=${VITE_INFLUX_TOKEN}
+      - VITE_INFLUX_ORG=securin
+      - VITE_INFLUX_BUCKET=tes
+      - VITE_INFLUX_BUCsKET=securinbucket
+
+      - VITE_FIREBASE_API_KEY=${VITE_FIREBASE_API_KEY}
+      - VITE_FIREBASE_AUTH_DOMAIN=${VITE_FIREBASE_AUTH_DOMAIN}
+      - VITE_FIREBASE_DATABASE_URL=${VITE_FIREBASE_DATABASE_URL}
+      - VITE_FIREBASE_PROJECT_ID=${VITE_FIREBASE_PROJECT_ID}
+      - VITE_FIREBASE_STORAGE_BUCKET=${VITE_FIREBASE_STORAGE_BUCKET}
+      - VITE_FIREBASE_MESSAGING_SENDER_ID=${VITE_FIREBASE_MESSAGING_SENDER_ID}
+      - VITE_FIREBASE_APP_ID=${VITE_FIREBASE_APP_ID}
+      - VITE_FIREBASE_MEASUREMENT_ID=${VITE_FIREBASE_MEASUREMENT_ID}
+      - VITE_GOOGLE_CLIENT_ID=${VITE_GOOGLE_CLIENT_ID}
+
+  influxdb:
+    image: influxdb:2.7
+    container_name: influxdb
+    restart: unless-stopped
+    ports:
+      - "8086:8086"
+    env_file:
+      - .env
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin12345       
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${DOCKER_INFLUXDB_INIT_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ORG=securin
+      - DOCKER_INFLUXDB_INIT_BUCKET=securinbucket
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${DOCKER_INFLUXDB_INIT_ADMIN_TOKEN}
+      - INFLUXDB_HTTP_CORS_ENABLED=true
+    volumes:
+      - ./frontend/influxdb:/var/lib/influxdb2
+    networks:
+      - securin_net
+
+networks:
+  securin_net:
+    driver: bridge
+    name: securin_net 
