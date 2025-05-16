@@ -77,10 +77,24 @@ Aplikasi android dapat diunduh dari https://securin.cloud/release/app-release.ap
 ```bash
 git clone https://github.com/PROJEK100/securin-final 
 ```
-2. Buat .env dari sample .env.example dan sesuaikan
+2. Konfigurasi .env dan Firebase
+
+- Buat .env dari sample .env.example 
 ```bash
 mv .env.example .env
 ```
+Sesuaikan **serviceAccountKey.json** yang didapatkan dari Firebase Console (Firebase Console > Project Settings > Service accounts):
+
+- Masukkan serviceAccountKey.json pada folder service yang membutuhkan (terdapat file serviceAccountKey.json)
+```
+Edit pada folder yang terdapat serviceAccountKey.json.example
+```
+
+- Sesuaikan firebaseConfig.json untuk **whatsapp_bot_service** (Didapat dari Firebase Console > Add App > Web > Register app)
+```
+microservice/whatsapp_bot_service/firebaseConfig.json
+```
+
 3. Build Docker Images
 
 AI/ML dan Backend
