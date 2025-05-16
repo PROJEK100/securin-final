@@ -92,7 +92,7 @@ Edit pada folder yang terdapat serviceAccountKey.json.example
 
 - Sesuaikan firebaseConfig.json untuk **whatsapp_bot_service** (Didapat dari Firebase Console > Add App > Web > Register app)
 ```
-microservice/whatsapp_bot_service/firebaseConfig.json
+Tambahkan ./microservice/whatsapp_bot_service/firebaseConfig.json
 ```
 
 3. Build Docker Images
